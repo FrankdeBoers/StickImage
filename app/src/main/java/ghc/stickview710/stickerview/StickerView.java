@@ -79,10 +79,9 @@ public class StickerView extends AppCompatImageView {
     }
 
     private void setAttributes(Context context, AttributeSet attrs) {
-//        TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.StickerView);
         try {
-            imageBeginScale = /*typedArray.getFloat(R.styleable.StickerView_m_image_init_scale,*/ 0.5f/*)*/;
-            maxStickerCount = /*typedArray.getInt(R.styleable.StickerView_m_max_count, */20/*)*/;
+            imageBeginScale =  0.5f/*)*/;
+            maxStickerCount = 20;
             minStickerSizeScale = 0.5f;
             closeIcon = R.drawable.sticker_closed;
             rotateIcon = R.drawable.sticker_rotate;
@@ -135,11 +134,6 @@ public class StickerView extends AppCompatImageView {
         invalidate();
         return true;
     }
-
-    /*public void removeSticker(Sticker sticker) {
-        mStickers.remove(sticker);
-        invalidate();
-    }*/
 
     public void clearSticker() {
         mStickers.clear();
@@ -379,77 +373,11 @@ public class StickerView extends AppCompatImageView {
         TOUCHING_INSIDE, TOUCHING_OUTSIDE, PRESS_DELETE, PRESS_SCALE_AND_ROTATE, DOUBLE_TOUCH;
     }
 
-    /*public int getMaxStickerCount() {
-        return maxStickerCount;
-    }
-
-    public void setMaxStickerCount(int maxStickerCount) {
-        this.maxStickerCount = maxStickerCount;
-    }
-
-    public float getMinStickerSizeScale() {
-        return minStickerSizeScale;
-    }*/
 
     public void setMinStickerSizeScale(float minStickerSizeScale) {
         this.minStickerSizeScale = minStickerSizeScale;
     }
 
-    /*public float getImageBeginScale() {
-        return imageBeginScale;
-    }
-
-    public void setImageBeginScale(float imageBeginScale) {
-        this.imageBeginScale = imageBeginScale;
-    }
-
-    public int getCloseIcon() {
-        return closeIcon;
-    }
-
-    public void setCloseIcon(int closeIcon) {
-        this.closeIcon = closeIcon;
-    }
-
-    public int getRotateIcon() {
-        return rotateIcon;
-    }
-
-    public void setRotateIcon(int rotateIcon) {
-        this.rotateIcon = rotateIcon;
-    }
-
-    public int getCloseSize() {
-        return closeSize;
-    }
-
-    public void setCloseSize(int closeSize) {
-        this.closeSize = closeSize;
-    }
-
-    public int getRotateSize() {
-        return rotateSize;
-    }
-
-    public void setRotateSize(int rotateSize) {
-        this.rotateSize = rotateSize;
-    }
-
-    public int getOutLineWidth() {
-        return outLineWidth;
-    }
-
-    public void setOutLineWidth(int outLineWidth) {
-        this.outLineWidth = outLineWidth;
-    }
-
-    public int getOutLineColor() {
-        return outLineColor;
-    }
-
-    public void setOutLineColor(int outLineColor) {
-        this.outLineColor = outLineColor;
-    }*/
 
     public int dip2px(Context c, float dpValue) {
         final float scale = c.getResources().getDisplayMetrics().density;
