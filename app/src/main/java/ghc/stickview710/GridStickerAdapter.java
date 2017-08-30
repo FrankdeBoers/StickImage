@@ -63,7 +63,7 @@ public class GridStickerAdapter extends BaseAdapter {
 
             viewHolder = new ViewHolder();
             // 获得容器
-            convertView = LayoutInflater.from(this.context).inflate(R.layout.grid_sticker_item, null);
+            convertView = LayoutInflater.from(this.context).inflate(R.layout.grid_choose_sticker_item, null);
 
             // 初始化组件
             viewHolder.image = (ImageView) convertView.findViewById(R.id.image);

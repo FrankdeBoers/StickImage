@@ -32,7 +32,7 @@ public class ChooseStickerActivity extends AppCompatActivity implements AdapterV
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.choose_sticker);
+        setContentView(R.layout.grid_choose_sticker);
 
         gridView = (GridView) findViewById(R.id.stickerGridView);
 
