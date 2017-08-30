@@ -5,16 +5,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import ghc.stickview710.stickerview.StickerView;
 
 
-public class MainActivity extends AppCompatActivity {
+public class StickerViewActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     TextView cleanTv, nextTv;
     StickerView stickerView;
@@ -26,40 +23,49 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.sticker_view_main);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView.setVisibility(View.GONE);
         cleanTv = (TextView) findViewById(R.id.cleanTv);
         nextTv = (TextView) findViewById(R.id.nextTv);
-        stickerView = (StickerView) findViewById(R.id.stickerView);
+        stickerView = (StickerView) findViewById(R.id.sticker_View_layout);
         stickerView.setMinStickerSizeScale(0.9f);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        ImageAdapter imageAdapter = new ImageAdapter();
-        recyclerView.setAdapter(imageAdapter);
+//        recyclerView.setLayoutManager(linearLayoutManager);
+//        ImageAdapter imageAdapter = new ImageAdapter();
+//        recyclerView.setAdapter(imageAdapter);
+
+        stickerView.addSticker(icons[0]);
+
+        /*//给下方的 sticker 选择框设置点击事件，可以选择多个
         imageAdapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 stickerView.addSticker(icons[position]);
             }
-        });
+        });*/
+
+        // 上方的 CLEAN 点击事件，清除所有的 贴纸
         cleanTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 stickerView.clearSticker();
             }
         });
+
+        // 保存事件
         nextTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 BitmapUtil.FINAL_BITMAP = stickerView.saveSticker();
-                Intent intent = new Intent(MainActivity.this, PictureActivity.class);
+                Intent intent = new Intent(StickerViewActivity.this, PictureActivity.class);
                 startActivity(intent);
             }
         });
     }
 
-    public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> implements View.OnClickListener {
+    /*public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> implements View.OnClickListener {
 
         private OnRecyclerViewItemClickListener mOnItemClickListener = null;
 
@@ -113,5 +119,5 @@ public class MainActivity extends AppCompatActivity {
 
     public interface OnRecyclerViewItemClickListener {
         void onItemClick(View view, int position);
-    }
+    }*/
 }

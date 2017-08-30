@@ -3,8 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="200dp"
+    android:layout_height="200dp"
     android:background="#000000"
     >
 
@@ -45,7 +45,7 @@
         android:layout_marginTop="16dp"/>
 
     <ghc.stickview710.stickerview.StickerView
-        android:id="@+id/stickerView"
+        android:id="@+id/sticker_View_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/recyclerView"
