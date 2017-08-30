@@ -136,10 +136,10 @@ public class StickerView extends AppCompatImageView {
         return true;
     }
 
-    public void removeSticker(Sticker sticker) {
+    /*public void removeSticker(Sticker sticker) {
         mStickers.remove(sticker);
         invalidate();
-    }
+    }*/
 
     public void clearSticker() {
         mStickers.clear();
@@ -379,7 +379,7 @@ public class StickerView extends AppCompatImageView {
         TOUCHING_INSIDE, TOUCHING_OUTSIDE, PRESS_DELETE, PRESS_SCALE_AND_ROTATE, DOUBLE_TOUCH;
     }
 
-    public int getMaxStickerCount() {
+    /*public int getMaxStickerCount() {
         return maxStickerCount;
     }
 
@@ -389,13 +389,13 @@ public class StickerView extends AppCompatImageView {
 
     public float getMinStickerSizeScale() {
         return minStickerSizeScale;
-    }
+    }*/
 
     public void setMinStickerSizeScale(float minStickerSizeScale) {
         this.minStickerSizeScale = minStickerSizeScale;
     }
 
-    public float getImageBeginScale() {
+    /*public float getImageBeginScale() {
         return imageBeginScale;
     }
 
@@ -449,7 +449,7 @@ public class StickerView extends AppCompatImageView {
 
     public void setOutLineColor(int outLineColor) {
         this.outLineColor = outLineColor;
-    }
+    }*/
 
     public int dip2px(Context c, float dpValue) {
         final float scale = c.getResources().getDisplayMetrics().density;
@@ -465,10 +465,12 @@ public class StickerView extends AppCompatImageView {
         @Override
         public void run() {
             currentSticker = null;
+            // 采用的是Android截屏实现原理，来实现两张图片的保存
             Bitmap bitmap = Bitmap.createBitmap(getWidth(), getHeight(),
                     Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bitmap);
             draw(canvas);
+
             String fileSave = "/storage/emulated/0/DCIM/Camera/";
             String picName = "IMG_" + DateFormat.format("yyyyMMdd_hhmmss", Calendar.getInstance());
             Log.d("StickerView", "[saveSticker] >> picName " + picName + END);
