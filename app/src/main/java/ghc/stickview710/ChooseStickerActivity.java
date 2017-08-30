@@ -49,7 +49,7 @@ public class ChooseStickerActivity extends AppCompatActivity implements AdapterV
         Log.d("ChooseStickerActivity", "position click " + position);
 
         Intent intent = new Intent(this, StickerViewActivity.class);
-        intent.putExtra("position", position);
+        intent.putExtra(StickerViewActivity.STICKER_UP, position);
         startActivity(intent);
     }
 }

@@ -18,10 +18,17 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.AppCompatImageView;
+import android.text.format.DateFormat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 
 import ghc.stickview710.R;
@@ -48,6 +55,11 @@ public class StickerView extends AppCompatImageView {
     private int closeIcon, rotateIcon;
     private int closeSize, rotateSize;
     private int outLineWidth, outLineColor;
+
+
+    private final static String END = ".jpg";
+
+    private String savePath = "";
 
     public StickerView(Context context) {
         super(context);
@@ -444,12 +456,47 @@ public class StickerView extends AppCompatImageView {
         return (int) (dpValue * scale + 0.5f);
     }
 
-    public Bitmap saveSticker() {
-        currentSticker = null;
-        Bitmap bitmap = Bitmap.createBitmap(getWidth(), getHeight(),
-                Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        draw(canvas);
-        return bitmap;
+    public String saveSticker() {
+        new Thread(new StickerSaveTask()).start();
+        return savePath;
+    }
+
+    class StickerSaveTask implements Runnable {
+        @Override
+        public void run() {
+            currentSticker = null;
+            Bitmap bitmap = Bitmap.createBitmap(getWidth(), getHeight(),
+                    Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bitmap);
+            draw(canvas);
+            String fileSave = "/storage/emulated/0/DCIM/Camera/";
+            String picName = "IMG_" + DateFormat.format("yyyyMMdd_hhmmss", Calendar.getInstance());
+            Log.d("StickerView", "[saveSticker] >> picName " + picName + END);
+            File file = new File(fileSave, picName + END);
+            int i = 0;
+            // 如果该文件存在，则在末尾添加_1、_2....
+            while (file.exists()) {
+                Log.d("StickerView", "[saveSticker] >> " + picName + " exit.");
+                file = new File(fileSave, picName + "_" + i + END);
+            }
+            try {
+                FileOutputStream out = new FileOutputStream(file);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, out);
+                out.flush();
+                out.close();
+                Log.d("StickerView", "save bitmap success.");
+                if (bitmap != null && !bitmap.isRecycled()) {
+                    bitmap.recycle();
+                    bitmap = null;
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            savePath = file.getAbsolutePath();
+            Log.d("StickerSaveTask", "savePath getAbsolutePath " + savePath);
+
+        }
     }
 }
