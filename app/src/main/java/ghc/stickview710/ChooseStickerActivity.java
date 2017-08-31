@@ -2,6 +2,8 @@ package ghc.stickview710;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -48,9 +50,11 @@ public class ChooseStickerActivity extends AppCompatActivity implements AdapterV
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Log.d("ChooseStickerActivity", "position click " + position);
 
+        ActivityOptionsCompat compat = ActivityOptionsCompat.makeScaleUpAnimation(view, view.getWidth() / 2, view.getHeight() / 2, 0, 0);
+
         Intent intent = new Intent(this, StickerViewActivity.class);
         intent.putExtra(StickerViewActivity.STICKER_UP, position);
-        startActivity(intent);
+        ActivityCompat.startActivity(this, intent, compat.toBundle());
     }
 }
 

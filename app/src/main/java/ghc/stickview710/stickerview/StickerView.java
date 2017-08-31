@@ -13,6 +13,8 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 import android.graphics.Region;
 import android.graphics.drawable.Drawable;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -80,7 +82,7 @@ public class StickerView extends AppCompatImageView {
 
     private void setAttributes(Context context, AttributeSet attrs) {
         try {
-            imageBeginScale =  0.5f/*)*/;
+            imageBeginScale = 0.5f/*)*/;
             maxStickerCount = 20;
             minStickerSizeScale = 0.5f;
             closeIcon = R.drawable.sticker_closed;
@@ -425,8 +427,24 @@ public class StickerView extends AppCompatImageView {
                 e.printStackTrace();
             }
             savePath = file.getAbsolutePath();
+            scanFile(savePath);
             Log.d("StickerSaveTask", "savePath getAbsolutePath " + savePath);
 
         }
+    }
+
+
+    /**
+     * 扫描文件
+     *
+     * @param path
+     */
+    private void scanFile(String path) {
+        MediaScannerConnection.scanFile(this.getContext(), new String[]{path},
+                null, new MediaScannerConnection.OnScanCompletedListener() {
+                    public void onScanCompleted(String path, Uri uri) {
+                        Log.e("TAG", "onScanCompleted");
+                    }
+                });
     }
 }
